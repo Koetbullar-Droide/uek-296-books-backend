@@ -1,0 +1,588 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Bücher & Ausleihen API",
+    "version": "1.0.0",
+    "description": "Eine einfache Bibliotheks-API"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Books",
+      "description": "Operations about books"
+    },
+    {
+      "name": "Lends",
+      "description": "Operations about lending books"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/api/books/": {
+      "get": {
+        "tags": [
+          "Books"
+        ],
+        "summary": "Gibt alle Bücher zurück",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Books"
+        ],
+        "summary": "Fügt ein neues Buch hinzu",
+        "description": "",
+        "parameters": [
+          {
+            "name": "book",
+            "in": "body",
+            "description": "Das hinzuzufügende Buch",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "isbn": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "title": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "year": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "author": {
+                  "type": "string",
+                  "example": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Buch wurde erstellt"
+          },
+          "400": {
+            "description": "Ungültige Buchdaten"
+          }
+        }
+      }
+    },
+    "/api/books/{isbn}": {
+      "get": {
+        "tags": [
+          "Books"
+        ],
+        "summary": "Gibt ein Buch anhand der ISBN zurück",
+        "description": "",
+        "parameters": [
+          {
+            "name": "isbn",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ISBN des Buchs"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Das gefundene Buch"
+          },
+          "404": {
+            "description": "Buch nicht gefunden"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Books"
+        ],
+        "summary": "Ersetzt ein Buch anhand der ISBN",
+        "description": "",
+        "parameters": [
+          {
+            "name": "isbn",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ISBN des zu ersetzenden Buchs"
+          },
+          {
+            "name": "book",
+            "in": "body",
+            "description": "Das neue Buch",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "isbn": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "title": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "year": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "author": {
+                  "type": "string",
+                  "example": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Buch wurde ersetzt"
+          },
+          "400": {
+            "description": "Ungültige Buchdaten"
+          },
+          "404": {
+            "description": "Buch nicht gefunden"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Books"
+        ],
+        "summary": "Löscht ein Buch anhand der ISBN",
+        "description": "",
+        "parameters": [
+          {
+            "name": "isbn",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ISBN des zu löschenden Buchs"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Buch wurde gelöscht"
+          },
+          "404": {
+            "description": "Buch nicht gefunden"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Books"
+        ],
+        "summary": "Aktualisiert teilweise ein Buch anhand der ISBN",
+        "description": "",
+        "parameters": [
+          {
+            "name": "isbn",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ISBN des zu aktualisierenden Buchs"
+          },
+          {
+            "name": "book",
+            "in": "body",
+            "description": "Die zu aktualisierenden Buchdaten",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "isbn": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "title": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "year": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "author": {
+                  "type": "string",
+                  "example": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Buch wurde aktualisiert"
+          },
+          "400": {
+            "description": "Ungültige Buchdaten"
+          },
+          "404": {
+            "description": "Buch nicht gefunden"
+          }
+        }
+      }
+    },
+    "/api/public": {
+      "get": {
+        "tags": [
+          "Security"
+        ],
+        "summary": "Public endpoint that anyone can access",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/private": {
+      "get": {
+        "tags": [
+          "Security"
+        ],
+        "summary": "Private endpoint that requires authentication",
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully authenticated"
+          },
+          "401": {
+            "description": "Unauthorized - Authentication failed"
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ]
+      }
+    },
+    "/api/name": {
+      "post": {
+        "tags": [
+          "Security"
+        ],
+        "summary": "Save a name to the session",
+        "description": "",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "body",
+            "description": "Name to save in session",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Name saved to session"
+          },
+          "400": {
+            "description": "Bad request - name parameter missing"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Security"
+        ],
+        "summary": "Retrieve the name from the session",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "Name retrieved from session"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Security"
+        ],
+        "summary": "Delete the name from the session",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "Name deleted from session"
+          }
+        }
+      }
+    },
+    "/api/login": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Login to the application",
+        "description": "",
+        "parameters": [
+          {
+            "name": "credentials",
+            "in": "body",
+            "description": "User credentials",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "example": "user@example.com"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "password"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Login successful"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Authentication failed - invalid credentials"
+          }
+        }
+      }
+    },
+    "/api/verify": {
+      "get": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Verify if user is logged in",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "User is authenticated"
+          },
+          "401": {
+            "description": "User is not authenticated"
+          }
+        }
+      }
+    },
+    "/api/logout": {
+      "delete": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Logout from the application",
+        "description": "",
+        "responses": {
+          "204": {
+            "description": "Logout successful"
+          }
+        }
+      }
+    },
+    "/api/lends/": {
+      "get": {
+        "tags": [
+          "Lends"
+        ],
+        "summary": "Get all lends",
+        "description": "Retrieves a list of all lends (requires authentication)",
+        "responses": {
+          "200": {
+            "description": "List of all lends"
+          },
+          "401": {
+            "description": "Unauthorized - Authentication required"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Lends"
+        ],
+        "summary": "Create a new lend",
+        "description": "Creates a new lend record (requires authentication)",
+        "parameters": [
+          {
+            "name": "lend",
+            "in": "body",
+            "description": "Lend information",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "customer_id": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "isbn": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "borrowed_at": {
+                  "type": "string",
+                  "example": "string (ISO date)"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Lend created successfully"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "description": "Unauthorized - Authentication required"
+          }
+        }
+      }
+    },
+    "/api/lends/{id}": {
+      "get": {
+        "tags": [
+          "Lends"
+        ],
+        "summary": "Get a lend by ID",
+        "description": "Retrieves a single lend by its ID (requires authentication)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID of the lend to retrieve"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lend found"
+          },
+          "401": {
+            "description": "Unauthorized - Authentication required"
+          },
+          "404": {
+            "description": "Lend not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Lends"
+        ],
+        "summary": "Update a lend",
+        "description": "Updates an existing lend (requires authentication)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID of the lend to update"
+          },
+          {
+            "name": "lend",
+            "in": "body",
+            "description": "Updated lend information",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "customer_id": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "isbn": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "borrowed_at": {
+                  "type": "string",
+                  "example": "string (ISO date)"
+                },
+                "returned_at": {
+                  "type": "string",
+                  "example": "string (ISO date) or null"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lend updated successfully"
+          },
+          "401": {
+            "description": "Unauthorized - Authentication required"
+          },
+          "404": {
+            "description": "Lend not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Lends"
+        ],
+        "summary": "Delete a lend",
+        "description": "Deletes a lend (requires authentication)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID of the lend to delete"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Lend deleted successfully"
+          },
+          "401": {
+            "description": "Unauthorized - Authentication required"
+          },
+          "404": {
+            "description": "Lend not found"
+          }
+        }
+      }
+    }
+  }
+}

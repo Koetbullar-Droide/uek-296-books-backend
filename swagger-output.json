@@ -1,0 +1,338 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Bücher & Ausleihen API",
+    "description": "Eine einfache Bibliotheks-API",
+    "version": "1.0.0"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/books": {
+      "get": {
+        "tags": [
+          "Books"
+        ],
+        "summary": "Gibt alle Bücher zurück",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Books"
+        ],
+        "summary": "Fügt ein neues Buch hinzu",
+        "description": "",
+        "parameters": [
+          {
+            "name": "book",
+            "in": "body",
+            "description": "Das hinzuzufügende Buch",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "isbn": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "title": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "year": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "author": {
+                  "type": "string",
+                  "example": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Buch wurde erstellt"
+          },
+          "400": {
+            "description": "Ungültige Buchdaten"
+          }
+        }
+      }
+    },
+    "/books/{isbn}": {
+      "get": {
+        "tags": [
+          "Books"
+        ],
+        "summary": "Gibt ein Buch anhand der ISBN zurück",
+        "description": "",
+        "parameters": [
+          {
+            "name": "isbn",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ISBN des Buchs"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Das gefundene Buch"
+          },
+          "404": {
+            "description": "Buch nicht gefunden"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Books"
+        ],
+        "summary": "Ersetzt ein Buch anhand der ISBN",
+        "description": "",
+        "parameters": [
+          {
+            "name": "isbn",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ISBN des zu ersetzenden Buchs"
+          },
+          {
+            "name": "book",
+            "in": "body",
+            "description": "Das neue Buch",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "isbn": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "title": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "year": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "author": {
+                  "type": "string",
+                  "example": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Buch wurde ersetzt"
+          },
+          "400": {
+            "description": "Ungültige Buchdaten"
+          },
+          "404": {
+            "description": "Buch nicht gefunden"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Books"
+        ],
+        "summary": "Löscht ein Buch anhand der ISBN",
+        "description": "",
+        "parameters": [
+          {
+            "name": "isbn",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ISBN des zu löschenden Buchs"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Buch wurde gelöscht"
+          },
+          "404": {
+            "description": "Buch nicht gefunden"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Books"
+        ],
+        "summary": "Aktualisiert teilweise ein Buch anhand der ISBN",
+        "description": "",
+        "parameters": [
+          {
+            "name": "isbn",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ISBN des zu aktualisierenden Buchs"
+          },
+          {
+            "name": "book",
+            "in": "body",
+            "description": "Die zu aktualisierenden Buchdaten",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "isbn": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "title": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "year": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "author": {
+                  "type": "string",
+                  "example": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Buch wurde aktualisiert"
+          },
+          "400": {
+            "description": "Ungültige Buchdaten"
+          },
+          "404": {
+            "description": "Buch nicht gefunden"
+          }
+        }
+      }
+    },
+    "/lends": {
+      "get": {
+        "tags": [
+          "Lends"
+        ],
+        "summary": "Gibt alle Ausleihen zurück",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Lends"
+        ],
+        "summary": "Erstellt eine neue Ausleihe",
+        "description": "",
+        "parameters": [
+          {
+            "name": "lend",
+            "in": "body",
+            "description": "Neue Ausleihe",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "customer_id": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "isbn": {
+                  "type": "string",
+                  "example": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Ausleihe erfolgreich erstellt"
+          },
+          "400": {
+            "description": "Fehlende Felder oder ID existiert bereits"
+          },
+          "404": {
+            "description": "Buch nicht gefunden"
+          }
+        }
+      }
+    },
+    "/lends/{id}": {
+      "get": {
+        "tags": [
+          "Lends"
+        ],
+        "summary": "Gibt eine Ausleihe anhand der ID zurück",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID der Ausleihe"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ausleihe gefunden"
+          },
+          "404": {
+            "description": "Keine Ausleihe mit dieser ID"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Lends"
+        ],
+        "summary": "Löscht eine Ausleihe anhand der ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID der zu löschenden Ausleihe"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Ausleihe erfolgreich gelöscht"
+          },
+          "404": {
+            "description": "Ausleihe nicht gefunden"
+          }
+        }
+      }
+    }
+  }
+}
